@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ portfolio.name }} | Portfolio</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <span class="logo-accent">&lt;</span>{{ portfolio.name }}<span class="logo-accent"> /&gt;</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#hero" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#contact" class="nav-link nav-btn">Contact Me</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <span class="badge">👋 Welcome to my portfolio</span>
+                <h1 class="hero-title">
+                    Hi, I'm <span class="gradient-text">{{ portfolio.name }}</span>
+                </h1>
+                <h2 class="hero-subtitle">{{ portfolio.role }}</h2>
+                <p class="hero-desc">{{ portfolio.bio }}</p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">
+                        <i class="fa-solid fa-folder-open"></i> View Projects
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fa-solid fa-paper-plane"></i> Get In Touch
+                    </a>
+                </div>
+                <div class="hero-socials">
+                    <a href="{{ portfolio.contact.github }}" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="{{ portfolio.contact.linkedin }}" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="{{ portfolio.contact.twitter }}" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="mailto:{{ portfolio.contact.email }}" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="hero-image-wrapper">
+                <div class="image-blob"></div>
+                <div class="image-frame">
+                    <img src="{{ portfolio.profile_image }}" alt="{{ portfolio.name }}" class="profile-img">
+                </div>
+                <div class="experience-badge">
+                    <span class="badge-num">FastAPI</span>
+                    <span class="badge-lbl">Backend Ready</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Get to know me</span>
+                <h2 class="section-title">About Me</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-image-card">
+                    <img src="{{ portfolio.profile_image }}" alt="{{ portfolio.name }}" class="about-img">
+                </div>
+                <div class="about-text">
+                    <h3>Hello! I am <span class="text-accent">{{ portfolio.name }}</span></h3>
+                    <p class="about-lead">
+                        I specialize in creating clean, fast, and scalable digital solutions from responsive web frontends to resilient APIs powered by FastAPI.
+                    </p>
+                    <p>
+                        With a deep interest in software architecture and modern web technologies, I love turning complex challenges into simple, elegant, and maintainable software.
+                    </p>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <i class="fa-solid fa-user-tag"></i>
+                            <div><strong>Name:</strong> <span>{{ portfolio.name }}</span></div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div><strong>Email:</strong> <span>{{ portfolio.contact.email }}</span></div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div><strong>Location:</strong> <span>{{ portfolio.contact.location }}</span></div>
+                        </div>
+                        <div class="info-item">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <div><strong>Employment:</strong> <span>Available</span></div>
+                        </div>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">
+                        <i class="fa-solid fa-handshake"></i> Let's Collaborate
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section skills" id="skills">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">My Capabilities</span>
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="skills-grid">
+                {% for skill in portfolio.skills %}
+                <div class="skill-card">
+                    <div class="skill-head">
+                        <span class="skill-name">{{ skill.name }}</span>
+                        <span class="skill-pct">{{ skill.level }}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ skill.level }}%"></div>
+                    </div>
+                    <span class="skill-cat">{{ skill.category }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services" id="services">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">What I Do</span>
+                <h2 class="section-title">Services Offered</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="services-grid">
+                {% for service in portfolio.services %}
+                <div class="service-card">
+                    <div class="service-icon">
+                        {% if service.icon == 'code' %}
+                            <i class="fa-solid fa-code"></i>
+                        {% elif service.icon == 'layout' %}
+                            <i class="fa-solid fa-laptop-code"></i>
+                        {% elif service.icon == 'database' %}
+                            <i class="fa-solid fa-database"></i>
+                        {% else %}
+                            <i class="fa-solid fa-bolt"></i>
+                        {% endif %}
+                    </div>
+                    <h3 class="service-title">{{ service.title }}</h3>
+                    <p class="service-desc">{{ service.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section projects" id="projects">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Portfolio Showcase</span>
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="projects-grid">
+                {% for project in portfolio.projects %}
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-folder">
+                            <i class="fa-regular fa-folder-open"></i>
+                        </div>
+                        <div class="project-links">
+                            <a href="{{ project.link }}" aria-label="External link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </div>
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <p class="project-desc">{{ project.description }}</p>
+                    <div class="project-tech">
+                        {% for t in project.tech %}
+                        <span class="tech-tag">{{ t }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section experience" id="experience">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Career Path</span>
+                <h2 class="section-title">Experience & Journey</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="timeline">
+                {% for item in portfolio.experience %}
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-period">{{ item.period }}</span>
+                        <h3 class="timeline-role">{{ item.role }}</h3>
+                        <h4 class="timeline-company">{{ item.company }}</h4>
+                        <p class="timeline-desc">{{ item.description }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-subtitle">Let's Connect</span>
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Have a project in mind?</h3>
+                    <p>
+                        Feel free to drop me a message. Whether you have an open opportunity, a question about FastAPI, or just want to say hi, my inbox is open!
+                    </p>
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <i class="fa-solid fa-envelope"></i>
+                            <div>
+                                <span class="label">Email</span>
+                                <a href="mailto:{{ portfolio.contact.email }}">{{ portfolio.contact.email }}</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-phone"></i>
+                            <div>
+                                <span class="label">Phone</span>
+                                <a href="tel:{{ portfolio.contact.phone }}">{{ portfolio.contact.phone }}</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div>
+                                <span class="label">Location</span>
+                                <span>{{ portfolio.contact.location }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm" onsubmit="event.preventDefault(); alert('Thank you, Benoitte has received your message!');">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" required placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" required placeholder="Project Collaboration">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required placeholder="Hi Benoitte, I'd like to talk about..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fa-solid fa-paper-plane"></i> Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; 2026 <strong>{{ portfolio.name }}</strong>. All rights reserved.</p>
+            <p class="powered-by">Built with <span class="heart">♥</span> using <strong>FastAPI</strong> &amp; Jinja2</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
